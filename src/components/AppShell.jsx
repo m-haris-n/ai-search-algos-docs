@@ -102,7 +102,7 @@ export default function AppShellDemo() {
       }
     >
       <div className="">
-        <Heading id="heading1">Heading 1</Heading>
+        <Heading id="heading1">Heading</Heading>
 
         <Code>{code}</Code>
       </div>
