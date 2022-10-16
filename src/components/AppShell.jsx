@@ -36,6 +36,17 @@ if __name__ == '__main__':
   import doctest
   doctest.testmod()`;
 
+const sections = [
+  {
+    heading: "Overview",
+    link: "overview",
+  },
+  {
+    heading: "Search Algorithm Terminologies",
+    link: "terminology",
+  },
+];
+
 export default function AppShellDemo() {
   const theme = useMantineTheme();
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
@@ -62,9 +73,13 @@ export default function AppShellDemo() {
           width={{ sm: 200, lg: 300 }}
         >
           <ScrollArea>
-            <ol>
-              <Li>Link</Li>
-            </ol>
+            <ul className="p-0 pl-2 list-disc">
+              {sections.map((section) => (
+                <Li key={section.link} section={section.link}>
+                  {section.heading}
+                </Li>
+              ))}
+            </ul>
           </ScrollArea>
         </Navbar>
       }
@@ -102,9 +117,76 @@ export default function AppShellDemo() {
       }
     >
       <div className="">
-        <Heading id="heading1">Heading</Heading>
+        <h1>Searches in Artificial Intelligence</h1>
+        <section className="section">
+          <Heading id={sections[0].link}>{sections[0].heading}</Heading>
+          <div className="content">
+            <Text>
+              In Artificial Intelligence, Search techniques are universal
+              problem-solving methods. Rational agents or Problem-solving agents
+              in AI mostly used these search strategies or algorithms to solve a
+              specific problem and provide the best result. Problem-solving
+              agents are the goal-based agents and use atomic representation. In
+              this topic, we will learn various problem-solving search
+              algorithms.
+            </Text>
+          </div>
+        </section>
 
-        <Code>{code}</Code>
+        <section className="section">
+          <Heading id={sections[1].link}>{sections[1].heading}</Heading>
+          <div className="content">
+            <Text>
+              <ul>
+                <li>
+                  <strong>Search: </strong>Searching is a step by step procedure
+                  to solve a search-problem in a given search space. A search
+                  problem can have three main factors:
+                  <ul>
+                    <li>
+                      <strong>Search Space: </strong>Search space represents a
+                      set of possible solutions, which a system may have.
+                    </li>
+                    <li>
+                      <strong>Start State: </strong> It is a state from where
+                      agent begins <strong>the search.</strong>
+                    </li>
+                    <li>
+                      <strong>Goal test: </strong>It is a function which observe
+                      the current state and returns whether the goal state is
+                      achieved or not.
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <strong>Search tree: </strong>A tree representation of search
+                  problem is called Search tree. The root of the search tree is
+                  the root node which is corresponding to the initial state.
+                </li>
+                <li>
+                  <strong>Actions: </strong> It gives the description of all the
+                  available actions to the agent.
+                </li>
+                <li>
+                  <strong>Transition model: </strong>A description of what each
+                  action do, can be represented as a transition model.
+                </li>
+                <li>
+                  <strong>Path Cost: </strong> It is a function which assigns a
+                  numeric cost to each path.
+                </li>
+                <li>
+                  <strong>Solution: </strong> It is an action sequence which
+                  leads from the start node to the goal node.
+                </li>
+                <li>
+                  <strong>Optimal Solution:</strong> If a solution has the
+                  lowest cost among all solutions.
+                </li>
+              </ul>
+            </Text>
+          </div>
+        </section>
       </div>
     </AppShell>
   );

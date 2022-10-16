@@ -25,7 +25,7 @@ if __name__ == '__main__':
 
 function App() {
   const [count, setCount] = useState(0);
-  const [colorScheme, setColorScheme] = useState("light");
+  const [colorScheme, setColorScheme] = useState("dark");
   const toggleColorScheme = (value) => {
     console.log(colorScheme);
     setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));
