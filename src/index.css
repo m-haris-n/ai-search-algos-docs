@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .code-area {
+        @apply w-full lg:w-2/3 xl:w-1/2;
+    }
+}
+
+ul, ol {
+    padding: 0px 25px;
+  }
+
