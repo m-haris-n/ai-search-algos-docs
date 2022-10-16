@@ -21,6 +21,8 @@ import Li from "./Li";
 import Heading from "./Heading";
 import Code from "./Code";
 
+import logo from "../assets/logo.png";
+
 const code = `def median(pool):
   '''Statistical median to demonstrate doctest.
   >>> median([2, 9, 9, 7, 9, 2, 4, 5, 8])
@@ -102,8 +104,12 @@ export default function AppShellDemo() {
                 mr="xl"
               />
             </MediaQuery>
-
-            <h1 className="text-2xl font-semibold px-5">Searches in AI</h1>
+            <div className="flex flex-row items-center">
+              <img src={logo} alt="" width={48} />
+              <h1 className="text-2xl font-semibold px-5">
+                Search Algorithms | AI
+              </h1>
+            </div>
             <ActionIcon
               variant="outline"
               color={dark ? "yellow" : "blue"}
@@ -117,7 +123,7 @@ export default function AppShellDemo() {
       }
     >
       <div className="">
-        <h1>Searches in Artificial Intelligence</h1>
+        <h1>Search Algorithms in Artificial Intelligence</h1>
         <section className="section">
           <Heading id={sections[0].link}>{sections[0].heading}</Heading>
           <div className="content">
