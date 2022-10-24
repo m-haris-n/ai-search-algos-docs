@@ -92,6 +92,7 @@ export default function AppShellDemo() {
     <AppShell
       styles={{
         main: {
+          width: "100%",
           background:
             theme.colorScheme === "dark"
               ? theme.colors.dark[8]
@@ -344,7 +345,7 @@ export default function AppShellDemo() {
                     </li>
                   </ol>
                 </div>
-                <p className="text-[20px]">Pseudocode:</p>
+                <p className="inner-heading">Pseudocode:</p>
                 <Pseudocode>
                   procedure DFS_iterative(G, v) is <br />
                   {"   "}let S be a stack <br />
@@ -366,13 +367,13 @@ export default function AppShellDemo() {
                   {"   "}
                   {"   "} S.push(w)
                 </Pseudocode>
-                <p className="text-[20px]">Implementations:</p>
+                <p className="inner-heading">Implementations:</p>
                 <CodeTabs
                   cpp={codes.dfs.cpp}
                   python={codes.dfs.python}
                   java={codes.dfs.java}
                 />
-                <p className="text-[20px]">Applications:</p>
+                <p className="inner-heading">Applications:</p>
                 <ul className="list-disc">
                   <li>Finding connected components.</li>
                   <li>Topological sorting.</li>
@@ -382,15 +383,161 @@ export default function AppShellDemo() {
                 </ul>
               </Text>
             </section>
-            <section>
+
+            <section className="">
               <Subheading id={sections[4].children[1].link}>
                 {sections[4].children[1].heading}
               </Subheading>
+              <Text>
+                Breadth-first search (BFS) is an algorithm for searching a tree
+                data structure for a node that satisfies a given property. It
+                starts at the tree root and explores all nodes at the present
+                depth prior to moving on to the nodes at the next depth level.
+                Extra memory, usually a queue, is needed to keep track of the
+                child nodes that were encountered but not yet explored.
+                <br />A standard BFS implementation puts each vertex of the
+                graph into one of two categories:
+                <ol className="list-decimal">
+                  <li>Visited</li>
+                  <li>Not visited</li>
+                </ol>
+                The purpose of the algorithm is to mark each vertex as visited
+                while avoiding cycles.
+                <br />
+                The BFS algorithm works as follows:
+                <div className="code-area">
+                  <ol className="list-decimal">
+                    <li>
+                      Start by putting any one of the graph's vertices at the
+                      back of a queue.
+                    </li>
+                    <li>
+                      Take the front item of the queue and add it to the visited
+                      list.
+                    </li>
+                    <li>
+                      Create a list of that vertex's adjacent nodes. Add the
+                      ones which aren't in the visited list to the back of the
+                      queue.
+                    </li>
+                    <li>
+                      Keep repeating steps 2 and 3 until the queue is empty.
+                    </li>
+                  </ol>
+                </div>
+                <p className="inner-heading">Pseudocode:</p>
+                <Pseudocode>
+                  procedure BFS(G, root) is <br />
+                  {"   "}let Q be a queue <br />
+                  {"   "}label root as explored <br />
+                  {"   "}Q.enqueue(root) <br />
+                  {"   "}while Q is not empty do <br />
+                  {"   "}
+                  {"   "}v := Q.dequeue() <br />
+                  {"   "}
+                  {"   "}if v is the goal then <br />
+                  {"   "}
+                  {"   "}
+                  {"   "}return v{"   "} <br />
+                  {"   "}for all edges from v to w in G.adjacentEdges(v) do{" "}
+                  <br />
+                  {"   "}
+                  {"   "}
+                  {"   "}if w is not labeled as explored then <br />
+                  {"   "}
+                  {"   "}
+                  {"   "}
+                  {"   "}label w as explored <br />
+                  {"   "}
+                  {"   "}
+                  {"   "}
+                  {"   "}Q.enqueue(w)
+                </Pseudocode>
+                <p className="inner-heading">Implementations:</p>
+                <CodeTabs
+                  cpp={codes.bfs.cpp}
+                  python={codes.bfs.python}
+                  java={codes.bfs.java}
+                />
+                <p className="inner-heading">Applications:</p>
+                <ul className="list-disc">
+                  <li>Copying garbage collection, Cheney's algorithm</li>
+                  <li>
+                    Finding the shortest path between two nodes u and v, with
+                    path length measured by number of edges (an advantage over
+                    depth-first search)
+                  </li>
+                  <li>
+                    Ford–Fulkerson method for computing the maximum flow in a
+                    flow network
+                  </li>
+                  <li>
+                    Serialization/Deserialization of a binary tree vs
+                    serialization in sorted order, allows the tree to be
+                    re-constructed in an efficient manner.
+                  </li>
+                  <li>
+                    Implementing parallel algorithms for computing a graph's
+                    transitive closure.
+                  </li>
+                </ul>
+              </Text>
             </section>
             <section>
               <Subheading id={sections[4].children[2].link}>
                 {sections[4].children[2].heading}
               </Subheading>
+              <Text>
+                Uniform-Cost Search is a variant of Dijikstra’s algorithm. Here,
+                instead of inserting all vertices into a priority queue, we
+                insert only source, then one by one insert when needed. In every
+                step, we check if the item is already in priority queue (using
+                visited array). If yes, we perform decrease key, else we insert
+                it. This variant of Dijkstra is useful for infinite graphs and
+                those graph which are too large to represent in the memory.
+                Uniform-Cost Search is mainly used in Artificial Intelligence.
+                <p className="inner-heading">Pseudocode:</p>
+                <Pseudocode>
+                  procedure uniform_cost_search(start) is node ← start frontier{" "}
+                  <br />← priority queue containing node only expanded ← empty
+                  set do <br />
+                  {"   "}if frontier is empty then <br />
+                  {"   "}
+                  {"   "}return failure <br />
+                  {"   "}node ← frontier.pop() <br />
+                  {"   "}if node is a goal state then <br />
+                  {"   "}
+                  {"   "}return solution(node) <br />
+                  {"   "}expanded.add(node) <br />
+                  {"   "}for each of node's neighbors n do <br />
+                  {"   "}
+                  {"   "}if n is not in expanded and not in frontier then <br />
+                  {"   "}
+                  {"   "}
+                  {"   "}frontier.add(n) <br />
+                  {"   "}
+                  {"   "}else if n is in frontier with higher cost
+                  {"   "}
+                  {"   "}
+                  {"   "}replace existing node with n
+                </Pseudocode>
+                <p className="inner-heading">Implementations:</p>
+                <CodeTabs
+                  cpp={codes.ucs.cpp}
+                  python={codes.ucs.python}
+                  java={codes.ucs.java}
+                />
+                <p className="inner-heading">Applications:</p>
+                <ul className="list-disc">
+                  <li>
+                    Least-cost paths are calculated for instance to establish
+                    tracks of electricity lines or oil pipelines. The algorithm
+                    has also been used to calculate optimal long-distance
+                    footpaths in Ethiopia and contrast them with the situation
+                    on the ground.
+                  </li>
+                </ul>
+              </Text>
             </section>
           </div>
         </section>
@@ -422,16 +569,66 @@ export default function AppShellDemo() {
               <Subheading id={sections[5].children[0].link}>
                 {sections[5].children[0].heading}
               </Subheading>
+              <Text>
+                We use a priority queue or heap to store the costs of nodes that
+                have the lowest evaluation function value. So the implementation
+                is a variation of BFS, we just need to change Queue to
+                PriorityQueue.
+                <p className="inner-heading">Pseudocode:</p>
+                <Pseudocode>
+                  procedure GBS(start, target) is: <br />
+                  {"   "}mark start as visited <br />
+                  {"   "}add start to queue <br />
+                  {"   "}while queue is not empty do: <br />
+                  {"   "}
+                  {"   "}current_node ← vertex of queue with min distance to{" "}
+                  <br />
+                  target <br />
+                  {"   "}
+                  {"   "}remove current_node from queue <br />
+                  {"   "}
+                  {"   "}foreach neighbor n of current_node do: <br />
+                  {"   "}
+                  {"   "}
+                  {"   "}if n not in visited then: <br />
+                  {"   "}
+                  {"   "}
+                  {"   "}if n is target: <br />
+                  {"   "}
+                  {"   "}
+                  {"   "}
+                  {"   "}return n{"   "} <br />
+                  {"   "}
+                  {"   "}else: <br />
+                  {"   "}
+                  {"   "}
+                  {"   "}
+                  {"   "}mark n as visited <br />
+                  {"   "}
+                  {"   "}
+                  {"   "}
+                  {"   "}add n to queue <br />
+                  {"   "}return failure <br />
+                </Pseudocode>
+                <p className="inner-heading">Implementaions:</p>
+                <CodeTabs
+                  cpp={codes.befs.cpp}
+                  java={codes.befs.java}
+                  python={codes.befs.python}
+                />
+              </Text>
             </section>
             <section>
               <Subheading id={sections[5].children[1].link}>
                 {sections[5].children[1].heading}
               </Subheading>
+              <Text></Text>
             </section>
             <section>
               <Subheading id={sections[5].children[2].link}>
                 {sections[5].children[2].heading}
               </Subheading>
+              <Text></Text>
             </section>
           </div>
         </section>
