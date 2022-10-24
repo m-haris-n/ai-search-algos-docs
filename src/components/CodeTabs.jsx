@@ -19,7 +19,7 @@ export default function CodeTabs(props) {
         <Prism.Tab value="python">Python</Prism.Tab>
         <Prism.Tab value="java">JAVA</Prism.Tab>
       </Prism.TabsList>
-      <ScrollArea className="max-h-[500px] border-b-[1px]">
+      <ScrollArea className="h-[500px] border-b-[1px]">
         <Prism.Panel value="cpp" language="cpp">
           {props.cpp}
         </Prism.Panel>

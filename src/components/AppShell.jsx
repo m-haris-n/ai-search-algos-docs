@@ -70,6 +70,7 @@ const sections = [
       { heading: "Depth First Search", link: "dfs" },
       { heading: "Breadth First Search", link: "bfs" },
       { heading: "Uniform Cost Search", link: "ucs" },
+      { heading: "Iterative Deepening Depth First Search", link: "iddfs" },
     ],
   },
   {
@@ -78,7 +79,8 @@ const sections = [
     children: [
       { heading: "Best First Search", link: "befs" },
       { heading: "A* Search", link: "astar" },
-      { heading: "Greedy Search", link: "greedy" },
+      { heading: "Hill Climbing Search", link: "hill-climbing" },
+      { heading: "Beam Search", link: "beam-search" },
     ],
   },
 ];
@@ -539,6 +541,92 @@ export default function AppShellDemo() {
                 </ul>
               </Text>
             </section>
+            <section>
+              <Subheading id={sections[4].children[3].link}>
+                {sections[4].children[3].heading}
+              </Subheading>
+              <Text>
+                Uniform-Cost Search is a variant of Dijikstra’s algorithm. Here,
+                instead of inserting all vertices into a priority queue, we
+                insert only source, then one by one insert when needed. In every
+                step, we check if the item is already in priority queue (using
+                visited array). If yes, we perform decrease key, else we insert
+                it. This variant of Dijkstra is useful for infinite graphs and
+                those graph which are too large to represent in the memory.
+                Uniform-Cost Search is mainly used in Artificial Intelligence.
+                <p className="inner-heading">Pseudocode:</p>
+                <Pseudocode>
+                  function IDDFS(root) is <br />
+                  {"   "}for depth from 0 to ∞ do <br />
+                  {"   "}
+                  {"   "}found, remaining ← DLS(root, depth) <br />
+                  {"   "}
+                  {"   "}if found ≠ null then <br />
+                  {"   "}
+                  {"   "}
+                  {"   "}return found <br />
+                  {"   "}
+                  {"   "}else if not remaining then <br />
+                  {"   "}
+                  {"   "}
+                  {"   "}return null <br />
+                  function DLS(node, depth) is <br />
+                  {"   "}if depth = 0 then <br />
+                  {"   "}
+                  {"   "}if node is a goal then <br />
+                  {"   "}
+                  {"   "}
+                  {"   "}return (node, true) <br />
+                  {"   "}
+                  {"   "}else <br />
+                  {"   "}
+                  {"   "}
+                  {"   "}return (null, true) (Not found, but may have children){" "}
+                  <br />
+                  {"   "}else if depth {">"} 0 then <br />
+                  {"   "}
+                  {"   "}any_remaining ← false <br />
+                  {"   "}
+                  {"   "}foreach child of node do <br />
+                  {"   "}
+                  {"   "}
+                  {"   "}found, remaining ← DLS(child, depth−1) <br />
+                  {"   "}
+                  {"   "}
+                  {"   "}if found ≠ null then <br />
+                  {"   "}
+                  {"   "}
+                  {"   "}
+                  {"   "}return (found, true) <br />
+                  {"   "}
+                  {"   "}
+                  {"   "}if remaining then <br />
+                  {"   "}
+                  {"   "}
+                  {"   "}
+                  {"   "}any_remaining ← true (At least one node found at depth,
+                  let IDDFS deepen) <br />
+                  {"   "}
+                  {"   "}return (null, any_remaining) <br />
+                </Pseudocode>
+                <p className="inner-heading">Implementations:</p>
+                <CodeTabs
+                  cpp={codes.iddfs.cpp}
+                  python={codes.iddfs.python}
+                  java={codes.iddfs.java}
+                />
+                <p className="inner-heading">Applications:</p>
+                <ul className="list-disc">
+                  <li>
+                    Least-cost paths are calculated for instance to establish
+                    tracks of electricity lines or oil pipelines. The algorithm
+                    has also been used to calculate optimal long-distance
+                    footpaths in Ethiopia and contrast them with the situation
+                    on the ground.
+                  </li>
+                </ul>
+              </Text>
+            </section>
           </div>
         </section>
         <section className="section">
@@ -809,7 +897,147 @@ export default function AppShellDemo() {
               <Subheading id={sections[5].children[2].link}>
                 {sections[5].children[2].heading}
               </Subheading>
-              <Text></Text>
+              <Text>
+                Hill Climbing is a heuristic search used for mathematical
+                optimization problems in the field of Artificial Intelligence.
+                Given a large set of inputs and a good heuristic function, it
+                tries to find a sufficiently good solution to the problem. This
+                solution may not be the global optimal maximum. <br />
+                Algorithm for Simple Hill climbing :
+                <div className="code-area">
+                  <ul className="list-decimal">
+                    <li>
+                      Evaluate the initial state. If it is a goal state then
+                      stop and return success. Otherwise, make the initial state
+                      as the current state.{" "}
+                    </li>
+                    <li>
+                      Loop until the solution state is found or there are no new
+                      operators present which can be applied to the current
+                      state.{" "}
+                      <ul className="list-decimal">
+                        <li>
+                          Select a state that has not been yet applied to the
+                          current state and apply it to produce a new state.{" "}
+                        </li>
+                        <li>
+                          Perform these to evaluate the new state.
+                          <ul className="list-decimal">
+                            <li>
+                              If the current state is a goal state, then stop
+                              and return success.{" "}
+                            </li>
+                            <li>
+                              If it is better than the current state, then make
+                              it the current state and proceed further.{" "}
+                            </li>
+                            <li>
+                              If it is not better than the current state, then
+                              continue in the loop until a solution is found.{" "}
+                            </li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>Exit from the function.</li>
+                  </ul>
+                </div>
+                <p className="inner-heading">Pseudocode:</p>
+                <Pseudocode>
+                  algorithm Discrete Space Hill Climbing is <br />
+                  {"   "}currentNode := startNode <br />
+                  {"   "}loop do <br />
+                  {"   "}
+                  {"   "}L := NEIGHBORS(currentNode) <br />
+                  {"   "}
+                  {"   "}nextEval := −INF <br />
+                  {"   "}
+                  {"   "}nextNode := NULL <br />
+                  {"   "}
+                  {"   "}for all x in L do <br />
+                  {"   "}
+                  {"   "}
+                  {"   "}if EVAL(x) {">"} nextEval then <br />
+                  {"   "}
+                  {"   "}
+                  {"   "}
+                  {"   "}nextNode := x <br />
+                  {"   "}
+                  {"   "}
+                  {"   "}
+                  {"   "}nextEval := EVAL(x) <br />
+                  {"   "}
+                  {"   "}if nextEval {"≤"} EVAL(currentNode) then <br />
+                  {"   "}
+                  {"   "}
+                  {"   "}// Return current node since no better neighbors exist{" "}
+                  <br />
+                  {"   "}
+                  {"   "}
+                  {"   "}return currentNode <br />
+                  {"   "}
+                  {"   "}currentNode := nextNode <br />
+                </Pseudocode>
+              </Text>
+            </section>
+            <section>
+              <Subheading id={sections[5].children[3].link}>
+                {sections[5].children[3].heading}
+              </Subheading>
+              <Text>
+                A heuristic search algorithm that examines a graph by extending
+                the most promising node in a limited set is known as beam
+                search. <br />
+                Beam search is a heuristic search technique that always expands
+                the W number of the best nodes at each level. It progresses
+                level by level and moves downwards only from the best W nodes at
+                each level. Beam Search uses breadth-first search to build its
+                search tree. Beam Search constructs its search tree using
+                breadth-first search. It generates all the successors of the
+                current level’s state at each level of the tree. However, at
+                each level, it only evaluates a W number of states. Other nodes
+                are not taken into account.
+                <p className="inner-heading">Pseudocode:</p>
+                <Pseudocode>
+                  Start <br />> Take the inputs <br />
+                  NODE = Root_Node & Found = False <br />
+                  If : Node is the Goal Node, <br />
+                  {"   "}Then Found = True, <br />
+                  Else : <br />
+                  {"   "}Find SUCCs of NODE if any, with its estimated cost&{" "}
+                  <br />
+                  {"   "}store it in OPEN List <br />
+                  While (Found == false & not able to proceed further), do{" "}
+                  <br />
+                  &#123; <br />
+                  {"   "}Sort OPEN List <br />
+                  {"   "}Select top W elements from OPEN list and put it in{" "}
+                  <br />
+                  {"   "}W_OPEN list and empty the OPEN list. <br />
+                  {"   "}for each NODE from W_OPEN list <br />
+                  {"   "}&#123; <br />
+                  {"   "}
+                  {"   "}if NODE = Goal, <br />
+                  {"   "}
+                  {"   "}
+                  {"   "}then FOUND = true <br />
+                  {"   "}
+                  {"   "}else <br />
+                  {"   "}
+                  {"   "}
+                  {"   "}Find SUCCs of NODE. If any with its estimated <br />
+                  {"   "}
+                  {"   "}
+                  {"   "}cost & Store it in OPEN list <br />
+                  &#125; <br />
+                  &#125; <br />
+                  If FOUND = True, <br />
+                  {"   "}then return Yes <br />
+                  else <br />
+                  {"   "}return No <br />
+                  Stop <br />
+                </Pseudocode>
+              </Text>
             </section>
           </div>
         </section>
