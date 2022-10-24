@@ -622,7 +622,188 @@ export default function AppShellDemo() {
               <Subheading id={sections[5].children[1].link}>
                 {sections[5].children[1].heading}
               </Subheading>
-              <Text></Text>
+              <Text>
+                Consider a square grid having many obstacles and we are given a
+                starting cell and a target cell. We want to reach the target
+                cell (if possible) from the starting cell as quickly as
+                possible. Here A* Search Algorithm comes to the rescue. What A*
+                Search Algorithm does is that at each step it picks the node
+                according to a value-‘f’ which is a parameter equal to the sum
+                of two other parameters – ‘g’ and ‘h’. At each step it picks the
+                node/cell having the lowest ‘f’, and process that node/cell. We
+                define ‘g’ and ‘h’ as simply as possible below g = the movement
+                cost to move from the starting point to a given square on the
+                grid, following the path generated to get there. h = the
+                estimated movement cost to move from that given square on the
+                grid to the final destination. This is often referred to as the
+                heuristic, which is nothing but a kind of smart guess. We really
+                don’t know the actual distance until we find the path, because
+                all sorts of things can be in the way (walls, water, etc.).
+                There can be many ways to calculate this ‘h’ which are discussed
+                in the later sections.
+                <br />
+                We create two lists – Open List and Closed List (just like
+                Dijkstra Algorithm) <br />
+              </Text>
+              <div className="code-area">
+                <ul className="list-decimal">
+                  <li>Initialize the open list</li>
+                  <li>
+                    Initialize the closed list
+                    <br />
+                    put the starting node on the open list (you can leave its f
+                    at zero)
+                  </li>
+                  <li>
+                    while the open list is not empty
+                    <ol className="list-decimal">
+                      <li>
+                        find the node with the least f on the open list, call it
+                        "q"
+                      </li>
+                      <li>pop q off the open list</li>
+                      <li>
+                        generate q's 8 successors and set their parents to q
+                      </li>
+                      <li>
+                        for each successor
+                        <ul className="list-decimal">
+                          <li> if successor is the goal, stop search</li>
+                          <li>
+                            else, compute both g and h for successor
+                            <br />
+                            successor.g = q.g + distance between successor and q
+                            <br />
+                            successor.h = distance from goal to successor (This
+                            can be done using many ways, we will discuss three
+                            heuristics- Manhattan, Diagonal and Euclidean
+                            Heuristics)
+                            <br />
+                            successor.f = successor.g + successor.h
+                          </li>
+                          <li>
+                            {" "}
+                            if a node with the same position as successor is in
+                            the OPEN list which has a lower f than successor,
+                            skip this successor
+                          </li>
+                          <li>
+                            if a node with the same position as successor is in
+                            the CLOSED list which has a lower f than successor,
+                            skip this successor otherwise, add the node to the
+                            open list
+                          </li>
+                        </ul>
+                        <br />
+                        end (for loop)
+                      </li>
+                      <li>push q on the closed list</li>
+                    </ol>
+                    <br />
+                    end (while loop)
+                  </li>
+                </ul>
+              </div>
+              <p className="inner-heading">Pseudocode:</p>
+              <Pseudocode>
+                function reconstruct_path(cameFrom, current) <br />
+                {"   "}total_path := &#123;current&#125; <br />
+                {"   "}while current in cameFrom.Keys: <br />
+                {"   "}
+                {"   "}current := cameFrom[current] <br />
+                {"   "}
+                {"   "}total_path.prepend(current) <br />
+                {"   "}return total_path <br />
+                // A* finds a path from start to goal. <br />
+                // h is the heuristic function. h(n) estimates the cost to reach
+                goal from node n. <br />
+                function A_Star(start, goal, h) <br />
+                {"   "}// The set of discovered nodes that may need to be
+                (re-)expanded. <br />
+                {"   "}// Initially, only the start node is known. <br />
+                {"   "}// This is usually implemented as a min-heap or priority
+                queue rather than a hash-set. <br />
+                {"   "}openSet := &#123;start&#125; <br />
+                {"   "}// For node n, cameFrom[n] is the node immediately
+                preceding it on the cheapest path from start <br />
+                {"   "}// to n currently known. <br />
+                {"   "}cameFrom := an empty map <br />
+                // For node n, gScore[n] is the cost of the cheapest path from
+                start to n currently known. <br />
+                {"   "}gScore := map with default value of Infinity <br />
+                {"   "}gScore[start] := 0 <br />
+                {"   "}// For node n, fScore[n] := gScore[n] + h(n). fScore[n]
+                represents our current best guess as to <br />
+                {"   "}// how cheap a path could be from start to finish if it
+                goes through n. <br />
+                {"   "}fScore := map with default value of Infinity <br />
+                {"   "}fScore[start] := h(start) <br />
+                {"   "}while openSet is not empty <br />
+                {"   "}
+                {"   "}// This operation can occur in O(Log(N)) time if openSet
+                is a min-heap or a priority queue <br />
+                {"   "}
+                {"   "}current := the node in openSet having the lowest fScore[]
+                value <br />
+                {"   "}
+                {"   "}if current = goal <br />
+                {"   "}
+                {"   "}
+                {"   "}return reconstruct_path(cameFrom, current) <br />
+                {"   "}
+                {"   "}openSet.Remove(current) <br />
+                {"   "}
+                {"   "}for each neighbor of current <br />
+                {"   "}
+                {"   "}
+                {"   "}// d(current,neighbor) is the weight of the edge from
+                current to neighbor <br />
+                {"   "}
+                {"   "}
+                {"   "}// tentative_gScore is the distance from start to the
+                neighbor through current <br />
+                {"   "}
+                {"   "}
+                {"   "}tentative_gScore := gScore[current] + d(current,
+                neighbor) <br />
+                {"   "}
+                {"   "}
+                {"   "}if tentative_gScore {"<"} gScore[neighbor] <br />
+                {"   "}
+                {"   "}
+                {"   "}
+                {"   "}// This path to neighbor is better than any previous one.
+                Record it! <br />
+                {"   "}
+                {"   "}
+                {"   "}
+                {"   "}cameFrom[neighbor] := current <br />
+                {"   "}
+                {"   "}
+                {"   "}
+                {"   "}gScore[neighbor] := tentative_gScore <br />
+                {"   "}
+                {"   "}
+                {"   "}
+                {"   "}fScore[neighbor] := tentative_gScore + h(neighbor) <br />
+                {"   "}
+                {"   "}
+                {"   "}
+                {"   "}if neighbor not in openSet <br />
+                {"   "}
+                {"   "}
+                {"   "}
+                {"   "}
+                {"   "}openSet.add(neighbor) <br />
+                {"   "}// Open set is empty but goal was never reached <br />
+                {"   "}return failure <br />
+              </Pseudocode>
+              <p className="inner-heading">Implementations:</p>
+              <CodeTabs
+                cpp={codes.astar.cpp}
+                python={codes.astar.python}
+                java={codes.astar.java}
+              />
             </section>
             <section>
               <Subheading id={sections[5].children[2].link}>
