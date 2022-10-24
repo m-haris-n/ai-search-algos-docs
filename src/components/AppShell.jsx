@@ -91,6 +91,11 @@ export default function AppShellDemo() {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const dark = colorScheme === "dark";
   const [opened, setOpened] = useState(false);
+  const toggleOpened = (e) => {
+    // e.preventDefault()
+    setOpened(!opened);
+  };
+  console.log("opened:" + opened);
   return (
     <AppShell
       styles={{
@@ -120,7 +125,11 @@ export default function AppShellDemo() {
                   </Li>
                   <ul className="list-disc">
                     {section.children.map((child) => (
-                      <Li key={child.link} section={child.link}>
+                      <Li
+                        key={child.link}
+                        section={child.link}
+                        toggler={toggleOpened}
+                      >
                         {child.heading}
                       </Li>
                     ))}
@@ -144,7 +153,7 @@ export default function AppShellDemo() {
             <MediaQuery largerThan="sm" styles={{ display: "none" }}>
               <Burger
                 opened={opened}
-                onClick={() => setOpened((o) => !o)}
+                onClick={toggleOpened}
                 size="sm"
                 color={theme.colors.gray[6]}
                 mr="xl"
