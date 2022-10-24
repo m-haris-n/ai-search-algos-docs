@@ -83,6 +83,7 @@ const sections = [
       { heading: "Beam Search", link: "beam-search" },
     ],
   },
+  { heading: "References", link: "references", children: [] },
 ];
 
 export default function AppShellDemo() {
@@ -999,7 +1000,8 @@ export default function AppShellDemo() {
                 are not taken into account.
                 <p className="inner-heading">Pseudocode:</p>
                 <Pseudocode>
-                  Start <br />> Take the inputs <br />
+                  Start <br />
+                  Take the inputs <br />
                   NODE = Root_Node & Found = False <br />
                   If : Node is the Goal Node, <br />
                   {"   "}Then Found = True, <br />
@@ -1039,6 +1041,35 @@ export default function AppShellDemo() {
                 </Pseudocode>
               </Text>
             </section>
+          </div>
+        </section>
+        <section className="section">
+          <Heading id={sections[6].link}>{sections[6].heading}</Heading>
+          <div className="content">
+            <Text>
+              <ul className="list-decimal italic">
+                <li className="opacity-50 hover:opacity-100">
+                  <a href="https://www.wikipedia.org/" target="_blank">
+                    Wikipedia
+                  </a>
+                </li>
+                <li className="opacity-50 hover:opacity-100">
+                  <a href="https://www.geeksforgeeks.org/" target="_blank">
+                    GeeksforGeeks
+                  </a>
+                </li>
+                <li className="opacity-50 hover:opacity-100">
+                  <a href="https://www.javatpoint.com/" target="_blank">
+                    JavaTpoint
+                  </a>
+                </li>
+                <li className="opacity-50 hover:opacity-100">
+                  <a href="https://www.programiz.com/" target="_blank">
+                    Programiz
+                  </a>
+                </li>
+              </ul>
+            </Text>
           </div>
         </section>
       </div>
